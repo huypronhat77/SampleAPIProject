@@ -1,0 +1,725 @@
+{
+	"info": {
+		"name": "Sample Products API",
+		"description": "Comprehensive RESTful API collection for learning and testing with Postman",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12345"
+	},
+	"item": [
+		{
+			"name": "Health Check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						""
+					]
+				},
+				"description": "Health check endpoint - doesn't require API key"
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Products",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-API-Key",
+						"value": "{{apiKey}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/api/products?pageNumber=1&pageSize=10",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"products"
+					],
+					"query": [
+						{
+							"key": "pageNumber",
+							"value": "1"
+						},
+						{
+							"key": "pageSize",
+							"value": "10"
+						},
+						{
+							"key": "category",
+							"value": "Electronics",
+							"disabled": true
+						},
+						{
+							"key": "minPrice",
+							"value": "10",
+							"disabled": true
+						},
+						{
+							"key": "maxPrice",
+							"value": "100",
+							"disabled": true
+						},
+						{
+							"key": "sortBy",
+							"value": "price",
+							"disabled": true
+						},
+						{
+							"key": "search",
+							"value": "laptop",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Get all products with pagination, filtering, sorting, and search capabilities"
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Products - Filtered by Category",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-API-Key",
+						"value": "{{apiKey}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/api/products?category=Electronics&pageNumber=1&pageSize=10",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"products"
+					],
+					"query": [
+						{
+							"key": "category",
+							"value": "Electronics"
+						},
+						{
+							"key": "pageNumber",
+							"value": "1"
+						},
+						{
+							"key": "pageSize",
+							"value": "10"
+						}
+					]
+				},
+				"description": "Get products filtered by category"
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Products - Price Range",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-API-Key",
+						"value": "{{apiKey}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/api/products?minPrice=20&maxPrice=50&pageNumber=1&pageSize=10",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"products"
+					],
+					"query": [
+						{
+							"key": "minPrice",
+							"value": "20"
+						},
+						{
+							"key": "maxPrice",
+							"value": "50"
+						},
+						{
+							"key": "pageNumber",
+							"value": "1"
+						},
+						{
+							"key": "pageSize",
+							"value": "10"
+						}
+					]
+				},
+				"description": "Get products within a price range"
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Products - Sorted by Price",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-API-Key",
+						"value": "{{apiKey}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/api/products?sortBy=price_desc&pageNumber=1&pageSize=10",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"products"
+					],
+					"query": [
+						{
+							"key": "sortBy",
+							"value": "price_desc",
+							"description": "Options: name, name_desc, price, price_desc, createdat, createdat_desc"
+						},
+						{
+							"key": "pageNumber",
+							"value": "1"
+						},
+						{
+							"key": "pageSize",
+							"value": "10"
+						}
+					]
+				},
+				"description": "Get products sorted by price (descending)"
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Products - Search",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-API-Key",
+						"value": "{{apiKey}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/api/products?search=laptop&pageNumber=1&pageSize=10",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"products"
+					],
+					"query": [
+						{
+							"key": "search",
+							"value": "laptop"
+						},
+						{
+							"key": "pageNumber",
+							"value": "1"
+						},
+						{
+							"key": "pageSize",
+							"value": "10"
+						}
+					]
+				},
+				"description": "Search products by name or description"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Product by ID",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-API-Key",
+						"value": "{{apiKey}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/api/products/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"products",
+						"1"
+					]
+				},
+				"description": "Get a specific product by ID (200 OK or 404 Not Found)"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Product by ID - Not Found",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-API-Key",
+						"value": "{{apiKey}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/api/products/999",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"products",
+						"999"
+					]
+				},
+				"description": "Test 404 Not Found response with non-existent ID"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Product",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-API-Key",
+						"value": "{{apiKey}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Mechanical Keyboard\",\n  \"price\": 129.99,\n  \"description\": \"RGB mechanical keyboard with Cherry MX switches\",\n  \"category\": 0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/products",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"products"
+					]
+				},
+				"description": "Create a new product (201 Created with Location header)\n\nCategory values:\n- 0: Electronics\n- 1: Clothing\n- 2: Food\n- 3: Books\n- 4: Home\n- 5: Sports\n- 6: Toys\n- 7: Beauty\n- 8: Automotive\n- 9: Other"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Product - Validation Error",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-API-Key",
+						"value": "{{apiKey}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"AB\",\n  \"price\": -10,\n  \"description\": \"\",\n  \"category\": 0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/products",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"products"
+					]
+				},
+				"description": "Test validation errors (400 Bad Request)"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Product (PUT)",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "X-API-Key",
+						"value": "{{apiKey}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Updated Laptop Dell XPS 15\",\n  \"price\": 1399.99,\n  \"description\": \"Updated description - High-performance laptop with 15-inch 4K display\",\n  \"category\": 0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/products/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"products",
+						"1"
+					]
+				},
+				"description": "Full update of a product - all fields required (200 OK or 404 Not Found)"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Product (PUT) - Not Found",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "X-API-Key",
+						"value": "{{apiKey}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Non-existent Product\",\n  \"price\": 99.99,\n  \"description\": \"This should fail\",\n  \"category\": 0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/products/999",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"products",
+						"999"
+					]
+				},
+				"description": "Test 404 Not Found when updating non-existent product"
+			},
+			"response": []
+		},
+		{
+			"name": "Partial Update (PATCH)",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "X-API-Key",
+						"value": "{{apiKey}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"price\": 24.99\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/products/2",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"products",
+						"2"
+					]
+				},
+				"description": "Partial update - only specified fields are updated (200 OK or 404 Not Found)"
+			},
+			"response": []
+		},
+		{
+			"name": "Partial Update (PATCH) - Multiple Fields",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "X-API-Key",
+						"value": "{{apiKey}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Premium Wireless Mouse\",\n  \"price\": 39.99\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/products/2",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"products",
+						"2"
+					]
+				},
+				"description": "Partial update with multiple fields"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Product",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "X-API-Key",
+						"value": "{{apiKey}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/api/products/10",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"products",
+						"10"
+					]
+				},
+				"description": "Delete a product (204 No Content or 404 Not Found)"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Product - Not Found",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "X-API-Key",
+						"value": "{{apiKey}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/api/products/999",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"products",
+						"999"
+					]
+				},
+				"description": "Test 404 Not Found when deleting non-existent product"
+			},
+			"response": []
+		},
+		{
+			"name": "HEAD - Check Product Exists",
+			"request": {
+				"method": "HEAD",
+				"header": [
+					{
+						"key": "X-API-Key",
+						"value": "{{apiKey}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/api/products/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"products",
+						"1"
+					]
+				},
+				"description": "Check if product exists without returning body (200 OK or 404 Not Found)"
+			},
+			"response": []
+		},
+		{
+			"name": "HEAD - Product Not Exists",
+			"request": {
+				"method": "HEAD",
+				"header": [
+					{
+						"key": "X-API-Key",
+						"value": "{{apiKey}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/api/products/999",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"products",
+						"999"
+					]
+				},
+				"description": "Test 404 Not Found for non-existent product using HEAD"
+			},
+			"response": []
+		},
+		{
+			"name": "OPTIONS - Get Allowed Methods",
+			"request": {
+				"method": "OPTIONS",
+				"header": [
+					{
+						"key": "X-API-Key",
+						"value": "{{apiKey}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/api/products",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"products"
+					]
+				},
+				"description": "Get allowed HTTP methods for the endpoint"
+			},
+			"response": []
+		},
+		{
+			"name": "Unauthorized - Missing API Key",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/products",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"products"
+					]
+				},
+				"description": "Test 401 Unauthorized response when API key is missing"
+			},
+			"response": []
+		},
+		{
+			"name": "Unauthorized - Invalid API Key",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-API-Key",
+						"value": "invalid-key",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/api/products",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"products"
+					]
+				},
+				"description": "Test 401 Unauthorized response with invalid API key"
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:5108",
+			"type": "string"
+		},
+		{
+			"key": "apiKey",
+			"value": "dev-api-key-12345",
+			"type": "string"
+		}
+	]
+}
+
