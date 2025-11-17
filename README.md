@@ -300,6 +300,26 @@ This API is designed to help you learn:
 - The API includes 12 pre-seeded products for testing
 - All endpoints (except health check and Swagger) require the `X-API-Key` header
 
+## Deployment
+
+### Deploy to Render
+
+This project is ready to deploy to Render with Docker support. See the comprehensive [Deployment Guide](DEPLOYMENT.md) for step-by-step instructions.
+
+**Quick Deploy:**
+1. Push your code to GitHub/GitLab/Bitbucket
+2. Create a new Web Service on Render (select Docker runtime)
+3. Set environment variables (see DEPLOYMENT.md)
+4. Deploy and access your API at `https://your-service.onrender.com`
+
+**Files for Deployment:**
+- `Dockerfile` - Multi-stage Docker build configuration
+- `.dockerignore` - Excludes unnecessary files from Docker image
+- `render.yaml` - Infrastructure as Code for one-click deployment
+- `appsettings.Production.json` - Production environment configuration
+
+For detailed instructions, troubleshooting, and best practices, see [DEPLOYMENT.md](DEPLOYMENT.md).
+
 ## Support
 
 For issues or questions, please refer to the Swagger documentation at `/swagger` or review the Postman collection examples.

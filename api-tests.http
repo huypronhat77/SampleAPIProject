@@ -1,0 +1,283 @@
+### SampleAPI HTTP Tests
+### Use this file with REST Client extension in VS Code
+### or similar HTTP client tools
+
+@baseUrl = http://localhost:5108
+@apiUrl = {{baseUrl}}/api/products
+
+### Variables for testing
+@productId = 1
+@newProductId = 100
+
+###############################################
+### 1. GET ALL PRODUCTS (Basic)
+###############################################
+GET {{apiUrl}}
+Accept: application/json
+
+###############################################
+### 2. GET ALL PRODUCTS (With Pagination)
+###############################################
+GET {{apiUrl}}?pageNumber=1&pageSize=5
+Accept: application/json
+
+###############################################
+### 3. GET ALL PRODUCTS (With Filtering)
+###############################################
+GET {{apiUrl}}?category=Electronics&minPrice=100&maxPrice=1000
+Accept: application/json
+
+###############################################
+### 4. GET ALL PRODUCTS (With Search)
+###############################################
+GET {{apiUrl}}?search=laptop
+Accept: application/json
+
+###############################################
+### 5. GET ALL PRODUCTS (With Sorting)
+###############################################
+GET {{apiUrl}}?sortBy=price&pageSize=10
+Accept: application/json
+
+###############################################
+### 6. GET ALL PRODUCTS (Combined Filters)
+###############################################
+GET {{apiUrl}}?pageNumber=1&pageSize=5&category=Electronics&minPrice=100&maxPrice=2000&sortBy=name&search=pro
+Accept: application/json
+
+###############################################
+### 7. GET PRODUCT BY ID
+###############################################
+GET {{apiUrl}}/{{productId}}
+Accept: application/json
+
+###############################################
+### 8. GET PRODUCT BY ID (Not Found)
+###############################################
+GET {{apiUrl}}/9999
+Accept: application/json
+
+###############################################
+### 9. CREATE NEW PRODUCT
+###############################################
+POST {{apiUrl}}
+Content-Type: application/json
+
+{
+  "name": "Laptop Pro",
+  "description": "High-performance laptop for professionals",
+  "price": 1299.99,
+  "category": "Electronics",
+  "stock": 50
+}
+
+###############################################
+### 10. CREATE PRODUCT (Minimal Fields)
+###############################################
+POST {{apiUrl}}
+Content-Type: application/json
+
+{
+  "name": "Basic Mouse",
+  "price": 19.99,
+  "stock": 100
+}
+
+###############################################
+### 11. CREATE PRODUCT (Invalid - Missing Required)
+###############################################
+POST {{apiUrl}}
+Content-Type: application/json
+
+{
+  "description": "Product without name"
+}
+
+###############################################
+### 12. CREATE PRODUCT (Invalid - Negative Price)
+###############################################
+POST {{apiUrl}}
+Content-Type: application/json
+
+{
+  "name": "Invalid Product",
+  "price": -10.00,
+  "stock": 5
+}
+
+###############################################
+### 13. UPDATE PRODUCT (Full Update - PUT)
+###############################################
+PUT {{apiUrl}}/{{productId}}
+Content-Type: application/json
+
+{
+  "name": "Updated Laptop Pro Max",
+  "description": "Updated description with new features",
+  "price": 1499.99,
+  "category": "Electronics",
+  "stock": 75
+}
+
+###############################################
+### 14. UPDATE PRODUCT (Invalid ID)
+###############################################
+PUT {{apiUrl}}/9999
+Content-Type: application/json
+
+{
+  "name": "Non-existent Product",
+  "price": 99.99,
+  "stock": 10
+}
+
+###############################################
+### 15. PARTIAL UPDATE (PATCH - Price Only)
+###############################################
+PATCH {{apiUrl}}/{{productId}}
+Content-Type: application/json
+
+{
+  "price": 1199.99
+}
+
+###############################################
+### 16. PARTIAL UPDATE (PATCH - Stock Only)
+###############################################
+PATCH {{apiUrl}}/{{productId}}
+Content-Type: application/json
+
+{
+  "stock": 100
+}
+
+###############################################
+### 17. PARTIAL UPDATE (PATCH - Multiple Fields)
+###############################################
+PATCH {{apiUrl}}/{{productId}}
+Content-Type: application/json
+
+{
+  "name": "Laptop Pro Plus",
+  "price": 1399.99,
+  "stock": 60
+}
+
+###############################################
+### 18. PARTIAL UPDATE (PATCH - Invalid)
+###############################################
+PATCH {{apiUrl}}/{{productId}}
+Content-Type: application/json
+
+{
+  "price": -500
+}
+
+###############################################
+### 19. DELETE PRODUCT
+###############################################
+DELETE {{apiUrl}}/{{newProductId}}
+
+###############################################
+### 20. DELETE PRODUCT (Not Found)
+###############################################
+DELETE {{apiUrl}}/9999
+
+###############################################
+### 21. HEAD REQUEST (Check Product Exists)
+###############################################
+HEAD {{apiUrl}}/{{productId}}
+
+###############################################
+### 22. HEAD REQUEST (Product Not Exists)
+###############################################
+HEAD {{apiUrl}}/9999
+
+###############################################
+### 23. OPTIONS REQUEST (Get Allowed Methods)
+###############################################
+OPTIONS {{apiUrl}}
+
+###############################################
+### HTTPS ENDPOINTS (If using HTTPS)
+###############################################
+@httpsBaseUrl = https://localhost:7278
+@httpsApiUrl = {{httpsBaseUrl}}/api/products
+
+###
+### 24. GET ALL PRODUCTS (HTTPS)
+###
+GET {{httpsApiUrl}}
+Accept: application/json
+
+###
+### 25. GET PRODUCT BY ID (HTTPS)
+###
+GET {{httpsApiUrl}}/{{productId}}
+Accept: application/json
+
+###############################################
+### Test Sequence: Create, Read, Update, Delete
+###############################################
+
+### Step 1: Create a test product
+# @name createProduct
+POST {{apiUrl}}
+Content-Type: application/json
+
+{
+  "name": "Test Product",
+  "description": "This is a test product",
+  "price": 49.99,
+  "category": "Test",
+  "stock": 20
+}
+
+###
+### Step 2: Get the created product
+### (Use the ID from the previous response)
+GET {{apiUrl}}/1
+Accept: application/json
+
+###
+### Step 3: Update the product
+PUT {{apiUrl}}/1
+Content-Type: application/json
+
+{
+  "name": "Updated Test Product",
+  "description": "This product has been updated",
+  "price": 59.99,
+  "category": "Test",
+  "stock": 25
+}
+
+###
+### Step 4: Verify the update
+GET {{apiUrl}}/1
+Accept: application/json
+
+###
+### Step 5: Partial update (price only)
+PATCH {{apiUrl}}/1
+Content-Type: application/json
+
+{
+  "price": 44.99
+}
+
+###
+### Step 6: Verify partial update
+GET {{apiUrl}}/1
+Accept: application/json
+
+###
+### Step 7: Delete the product
+DELETE {{apiUrl}}/1
+
+###
+### Step 8: Verify deletion (should return 404)
+GET {{apiUrl}}/1
+Accept: application/json
+
+
